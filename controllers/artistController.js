@@ -81,8 +81,8 @@ exports.signUpArtist = async (req, res) => {
       })
      .then(() => {
       Artist.find({ token: req.params.token })
-        .then(newProfil => {
-          res.json({ result: true, message: 'Profile created', newProfil })
+        .then(newProfile => {
+          res.json({ result: true, message: 'Profile created', newProfile })
       })
     })
   };
