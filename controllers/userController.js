@@ -9,6 +9,7 @@ const bcrypt = require("bcrypt");
 
 const token = uid2(32);
 
+
 /* GESTION DES USERS */
 /* Fonctions: Create, Trouver tout les utilisateurs, Trouver un utilisateur */
 /* ------------------------*/

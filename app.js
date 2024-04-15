@@ -8,7 +8,8 @@ require("./config/connection")
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/userRoute');
-
+const cors = require('cors');
+app.use(cors());
 var app = express();
 
 app.use(logger('dev'));

@@ -7,6 +7,7 @@ const {
     getUser
   } = require("../controllers/userController");
 
+  
 /* GET users listing. */
 router.get('/', getUser)
 
