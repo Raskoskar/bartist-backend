@@ -25,12 +25,6 @@ exports.signUpVenue = async (req, res) => {
         email: req.body.email,
         password: hash,
         token: uid2(32),
-        // name: req.body.name,
-        // type: req.body.type,
-        // adresse: req.body.adresse,
-        // description: req.body.description,
-        // image_profil: req.body.image,
-        // evenement: req.body.evenementId,
       });
 
       newVenue.save().then(newDoc => {
@@ -56,6 +50,34 @@ exports.signInVenue = async (req, res) => {
       res.json({ result: true, token: data.token });
     } else {
       res.json({ result: false, error: 'email not found or wrong password' });
+    }
+  });
+};
+
+// POST create profil
+exports.createProfilVenue = async (req, res) => {
+  if (!checkBody(req.body, ['name'])) {
+    res.json({ result: false, error: 'Missing or empty fields' });
+    return;
+  }
+  // Check if token has been registered
+  Venue.findOne({ token: req.params.token }).then(data => {
+    if (data === null) {
+      // Token doesn't exist in the database
+      res.json({ result: false, error: 'Venue don`t exists' });      
+    } else {
+      // Complete profile with new data in venues
+      data.name = req.body.name;
+      data.type = req.body.type;
+      data.adress = req.body.adress;
+      data.description = req.body.description;
+      data.picture = req.body.picture;
+      data.events = req.body.evenementId;
+
+      // Save the updated profile in the db
+      data.save().then(newProfil => {
+        res.json({ result: true, message: 'Profile created', newProfil });
+      });
     }
   });
 };

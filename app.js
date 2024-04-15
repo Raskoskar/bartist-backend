@@ -30,5 +30,4 @@ app.use('/users', usersRouter);
 app.use('/artists', artistsRouter);
 app.use('/venues', venuesRouter);
 
-
 module.exports = app;
