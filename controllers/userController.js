@@ -13,7 +13,7 @@ const token = uid2(32);
 /* GESTION DES USERS */
 /* Fonctions: Create, Trouver tout les utilisateurs, Trouver un utilisateur */
 /* ------------------------*/
-exports.getUsers = async (req, res) => {
+exports.getUser = async (req, res) => {
     try {
       const users = await User.find();
       res.status(200).json({ result: true, users: users });
