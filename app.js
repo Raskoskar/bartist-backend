@@ -10,6 +10,7 @@ require("./config/connection")
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/userRoute');
 var artistsRouter = require('./routes/artistRoute');
+var venuesRouter = require('./routes/venueRoute');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/artists', artistsRouter);
+app.use('/venues', venuesRouter);
 
 
 module.exports = app;
