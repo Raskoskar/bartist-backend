@@ -51,3 +51,39 @@ exports.signUpArtist = async (req, res) => {
       }
     });
   };
+
+  //AJOUT D'INFORMATIONS - DEUXIEME ETAPE DE L'INSCRIPTION
+  exports.createProfileArtist = async (req, res) => {
+    //Vérification que les champs obligatoires sont bien remplis - ou vérification en front ?
+    if (!checkBody(req.body, ['name'])) {
+      res.json({ result: false, error: 'Missing or empty mandatory fields' });
+      return;
+    }
+    Artist.updateOne(
+      { token: req.params.token },
+      { $set:
+        {
+          name: req.body.name,
+          type: req.body.type,
+          description: req.body.description,
+          members: req.body.members,
+          picture: req.body.picture,
+          genres: [req.body.genres],
+          medias: [req.body.medias],
+          socials: {
+            youtube: req.body.youtube,
+            soundcloud: req.body.soundcloud,
+            facebook: req.body.facebook,
+            deezer: req.body.deezer,
+            spotify: req.body.spotify,
+          }
+        }
+      })
+     .then(() => {
+      Artist.find({ token: req.params.token })
+        .then(newProfil => {
+          res.json({ result: true, message: 'Profile created', newProfil })
+      })
+    })
+  };
+

@@ -55,7 +55,7 @@ exports.signInVenue = async (req, res) => {
 };
 
 // POST create profil
-exports.createProfilVenue = async (req, res) => {
+exports.createProfileVenue = async (req, res) => {
   if (!checkBody(req.body, ['name'])) {
     res.json({ result: false, error: 'Missing or empty fields' });
     return;
@@ -64,7 +64,7 @@ exports.createProfilVenue = async (req, res) => {
   Venue.findOne({ token: req.params.token }).then(data => {
     if (data === null) {
       // Token doesn't exist in the database
-      res.json({ result: false, error: 'Venue don`t exists' });      
+      res.json({ result: false, error: 'Venue does not exist' });      
     } else {
       // Complete profile with new data in venues
       data.name = req.body.name;
@@ -75,8 +75,8 @@ exports.createProfilVenue = async (req, res) => {
       data.events = req.body.evenementId;
 
       // Save the updated profile in the db
-      data.save().then(newProfil => {
-        res.json({ result: true, message: 'Profile created', newProfil });
+      data.save().then(newProfile => {
+        res.json({ result: true, message: 'Profile created', newProfile });
       });
     }
   });
