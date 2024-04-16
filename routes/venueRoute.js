@@ -14,7 +14,7 @@ router.post('/signUp', signUpVenue)
 router.post('/signIn', signInVenue)
 
 // POST create profil
-router.post('/createprofile/:token', createProfileVenue)
+router.post('/createProfile/:token', createProfileVenue)
 
 module.exports = router;
 

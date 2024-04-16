@@ -12,6 +12,6 @@ const {
 // router.get('/', getUser)
  router.post('/signUp', signUpArtist)
  router.post('/signIn', signInArtist)
- router.post('/createProfileArtist/:token', createProfileArtist)
+ router.post('/createProfile/:token', createProfileArtist)
 
 module.exports = router;

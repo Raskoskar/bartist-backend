@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/userRoute');
 var artistsRouter = require('./routes/artistRoute');
 var venuesRouter = require('./routes/venueRoute');
+var eventsRouter = require('./routes/eventRoute');
 
 var app = express();
 
@@ -29,5 +30,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/artists', artistsRouter);
 app.use('/venues', venuesRouter);
+app.use('/events', eventsRouter);
 
 module.exports = app;

@@ -72,7 +72,6 @@ exports.createProfileVenue = async (req, res) => {
       data.adress = req.body.adress;
       data.description = req.body.description;
       data.picture = req.body.picture;
-      data.events = req.body.evenementId;
 
       // Save the updated profile in the db
       data.save().then(newProfile => {
