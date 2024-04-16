@@ -68,8 +68,8 @@ exports.signUpArtist = async (req, res) => {
           description: req.body.description,
           members: req.body.members,
           picture: req.body.picture,
-          genres: [req.body.genres],
-          medias: [req.body.medias],
+          genres: req.body.genres,
+          medias: req.body.medias,
           socials: {
             youtube: req.body.youtube,
             soundcloud: req.body.soundcloud,
