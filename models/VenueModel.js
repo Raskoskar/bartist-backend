@@ -7,7 +7,7 @@ const venueSchema = mongoose.Schema({
   token: String,
   name: String,
   type: String,
-  adress: String,
+  address: String,
   description: String,
   picture: String,
   events: [{type: mongoose.Schema.Types.ObjectId, ref: "event"}],
