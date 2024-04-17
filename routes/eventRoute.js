@@ -8,6 +8,6 @@ const {
   } = require("../controllers/eventController");
 
 // POST createEvent
-router.post('/createEvent/:token', createEvent)
+router.post('/createEvent', createEvent)
 
 module.exports = router;
