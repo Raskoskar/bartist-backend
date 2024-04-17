@@ -68,11 +68,11 @@ exports.createProfileVenue = async (req, res) => {
     } else {
       console.log(req.body.type)
       // Complete profile with new data in venues
-      dataVenues.name = req.body.name;
-      dataVenues.type = req.body.type;
-      dataVenues.address = req.body.address;
-      dataVenues.description = req.body.description;
-      dataVenues.picture = req.body.picture;
+      data.name = req.body.name;
+      data.type = req.body.type;
+      data.address = req.body.address;
+      data.description = req.body.description;
+      data.picture = req.body.picture;
 
       // Save the updated profile in the db
       data.save().then(newProfile => {
