@@ -61,17 +61,17 @@ exports.createProfileVenue = async (req, res) => {
     return;
   }
   // Check if token has been registered
-  Venue.findOne({ token: req.params.token }).then(dataVenue => {
-    if (dataVenue === null) {
+  Venue.findOne({ token: req.params.token }).then(dataVenues => {
+    if (dataVenues === null) {
       // Token doesn't exist in the database
       res.json({ result: false, error: 'Venue does not exist' });      
     } else {
       // Complete profile with new data in venues
-      data.name = req.body.name;
-      data.type = req.body.type;
-      data.address = req.body.address;
-      data.description = req.body.description;
-      data.picture = req.body.picture;
+      dataVenues.name = req.body.name;
+      dataVenues.type = req.body.type;
+      dataVenues.address = req.body.address;
+      dataVenues.description = req.body.description;
+      dataVenues.picture = req.body.picture;
 
       // Save the updated profile in the db
       data.save().then(newProfile => {
