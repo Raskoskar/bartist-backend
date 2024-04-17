@@ -69,7 +69,7 @@ exports.createProfileVenue = async (req, res) => {
       // Complete profile with new data in venues
       data.name = req.body.name;
       data.type = req.body.type;
-      data.adress = req.body.adress;
+      data.address = req.body.address;
       data.description = req.body.description;
       data.picture = req.body.picture;
 
