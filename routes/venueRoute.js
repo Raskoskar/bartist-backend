@@ -4,7 +4,7 @@ var router = express.Router();
 const {
     signUpVenue,
     signInVenue,
-    createProfilVenue,
+    createProfileVenue,
   } = require("../controllers/venueController");
 
 // POST signup
@@ -14,7 +14,7 @@ router.post('/signUp', signUpVenue)
 router.post('/signIn', signInVenue)
 
 // POST create profil
-router.post('/createprofil/:token', createProfilVenue)
+router.post('/createProfile/:token', createProfileVenue)
 
 module.exports = router;
 

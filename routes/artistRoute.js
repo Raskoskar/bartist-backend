@@ -4,6 +4,7 @@ var router = express.Router();
 const {
     signUpArtist,
     signInArtist,
+    createProfileArtist,
   } = require("../controllers/artistController");
 
   
@@ -11,5 +12,6 @@ const {
 // router.get('/', getUser)
  router.post('/signUp', signUpArtist)
  router.post('/signIn', signInArtist)
+ router.post('/createProfile/:token', createProfileArtist)
 
 module.exports = router;

@@ -1,10 +1,13 @@
 const { urlencoded } = require('express');
 const mongoose = require('mongoose');
 
-const socialSchema = mongoose.Schema({
-    platform: String,
-    url: String,
-   });
+const socialsSchema = mongoose.Schema({
+  youtube: String,
+  soundcloud: String,
+  facebook: String,
+  deezer: String,
+  spotify: String,
+})
 
 const artistSchema = mongoose.Schema({
   email: String,
@@ -16,9 +19,8 @@ const artistSchema = mongoose.Schema({
   members: Number,
   picture: String,
   medias: [String],
-  socials: [socialSchema],
-  events: [{type: mongoose.Schema.Types.ObjectId, ref: 'events'}],
-  genres: [{type: mongoose.Schema.Types.ObjectId, ref: 'genres'}],
+  genres: [String],
+  socials: socialsSchema,
 });
 
 const Artist = mongoose.model('artists', artistSchema);
