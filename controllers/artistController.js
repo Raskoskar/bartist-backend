@@ -10,6 +10,7 @@ const token = uid2(32);
 
 //ROUTE INSCRIPTION
 exports.signUpArtist = async (req, res) => {
+  try{
     //Vérification que les champs sont bien remplis
     if (!checkBody(req.body, ['email', 'password'])) {
         res.json({ result: false, error: 'Missing or empty fields' });
@@ -33,6 +34,9 @@ exports.signUpArtist = async (req, res) => {
           res.json({ result: false, error: 'Artist already exists' });
         }
       });
+    }catch(error){
+      console.log(error.message)
+    }
   };
 
   //ROUTE CONNEXION
@@ -87,3 +91,17 @@ exports.signUpArtist = async (req, res) => {
     })
   };
 
+  // RECUPERATION INFOS ARTISTE
+  exports.getArtist = (req, res) => {
+    try{
+      Artist.findOne({ token: req.params.token }).then(data => {
+        if (data) {
+          res.json({ result: true, artist: data });
+        } else {
+          res.json({ result: false, error: 'User not found' });
+        }
+      });
+    }catch(error){
+      console.log(error.message)
+    }
+  };

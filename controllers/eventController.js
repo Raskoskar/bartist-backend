@@ -14,7 +14,7 @@ exports.createEvent = async (req, res) => {
       }
     // A rajouter éventuellement : Vérification qu'il n'y a pas déjà un event ce jour là ? ou peut-être un message d'alerte pour le user ?
     //Recherche de l'établissement d'après token de l'utilisateur connecté
-    Venue.findOne({token: req.params.token})
+    Venue.findOne({token: req.body.token})
         .then(data => {
         // le compte Venue existe en BDD
         if (data) {
