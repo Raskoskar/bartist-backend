@@ -1,20 +1,22 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
 const {
-    signUpVenue,
-    signInVenue,
-    createProfileVenue,
-  } = require("../controllers/venueController");
+  signUpVenue,
+  signInVenue,
+  createProfileVenue,
+  getVenue,
+} = require("../controllers/venueController");
 
+// GET un venue
+router.get("/:token", getVenue);
 // POST signup
-router.post('/signUp', signUpVenue)
+router.post("/signUp", signUpVenue);
 
 // POST signin
-router.post('/signIn', signInVenue)
+router.post("/signIn", signInVenue);
 
 // POST create profil
-router.post('/createProfile/:token', createProfileVenue)
+router.post("/createProfile/:token", createProfileVenue);
 
 module.exports = router;
-

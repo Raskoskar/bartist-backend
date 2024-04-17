@@ -80,3 +80,18 @@ exports.createProfileVenue = async (req, res) => {
     }
   });
 };
+
+// RECUPERATION INFOS D'UN VENUE
+exports.getVenue = (req, res) => {
+  try{
+    Venue.findOne({ token: req.params.token }).then(data => {
+      if (data) {
+        res.json({ result: true, venue: data });
+      } else {
+        res.json({ result: false, error: 'User not found' });
+      }
+    });
+  }catch(error){
+    console.log(error.message)
+  }
+};
