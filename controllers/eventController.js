@@ -8,7 +8,7 @@ const { checkBody } = require("../utils/checkBody");
 //ROUTE CREATION D'EVENEMENT
 exports.createEvent = async (req, res) => {
     //Vérification que les champs sont bien remplis
-    if (!checkBody(req.body, ['title', 'description', 'date', 'hour_start', 'picture', 'status', 'genres' ])) {
+    if (!checkBody(req.body, ['title', 'date', 'hour_start', 'status', 'genres' ])) {
         res.json({ result: false, error: 'Missing or empty fields' });
         return;
       }
