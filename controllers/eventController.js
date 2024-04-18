@@ -40,3 +40,17 @@ exports.createEvent = async (req, res) => {
       });
   };
 
+// Fonction GET pour récupérer tout les events
+exports.getEvents = async (req, res) => {
+  try{
+    Event.find().then(data => {
+      if(data){
+        res.status(200).json({result: true, events: data})
+      }else{
+        res.status(404).json({result: false, message: "no data"})
+      }
+  })
+  }catch(err){
+    res.status(500).json({result: false, message: err.message})
+  }
+}

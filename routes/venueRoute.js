@@ -9,7 +9,7 @@ const {
 } = require("../controllers/venueController");
 
 // GET un venue
-router.get("/:token", getVenue);
+router.get("/:id", getVenue);
 // POST signup
 router.post("/signUp", signUpVenue);
 

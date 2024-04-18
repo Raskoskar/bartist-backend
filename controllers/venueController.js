@@ -85,14 +85,14 @@ exports.createProfileVenue = async (req, res) => {
 // RECUPERATION INFOS D'UN VENUE
 exports.getVenue = (req, res) => {
   try{
-    Venue.findOne({ token: req.params.token }).then(data => {
+    Venue.findOne({ _id: req.params.id }).then(data => {
       if (data) {
-        res.json({ result: true, venue: data });
+        res.status(200).json({ result: true, venue: data });
       } else {
-        res.json({ result: false, error: 'User not found' });
+        res.status(404).json({ result: false, message: 'User not found' });
       }
     });
   }catch(error){
-    console.log(error.message)
+    res.status(500).json({ result: false, message: 'Error' });
   }
 };

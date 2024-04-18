@@ -116,6 +116,6 @@ exports.signUpArtist = async (req, res) => {
         }
       });
     }catch(error){
-      console.log(error.message)
+      res.json(500).json({result: false, message: error.message})
     }
   };
