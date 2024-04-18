@@ -90,8 +90,22 @@ exports.signUpArtist = async (req, res) => {
       })
     })
   };
-
-  // RECUPERATION INFOS ARTISTE
+  // RECUPERATION INFOS DE TOUT LES ARTISTES
+  exports.getArtists = (req, res) => {
+    try{
+      Artist.find().then(data => {
+        if(data){
+          console.log("Artists found:", data);
+          res.status(200).json({ result: true, artists: data });
+        }else{
+          res.status(404).json({result: false, message: "No artists found"})
+        }
+      })
+    }catch(errror){
+      res.status(500).json({result: false, message: "Internal server error"})
+    }
+  }
+  // RECUPERATION INFOS D'UN ARTISTE
   exports.getArtist = (req, res) => {
     try{
       Artist.findOne({ token: req.params.token }).then(data => {

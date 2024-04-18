@@ -3,6 +3,7 @@ var router = express.Router();
 
 const {
   getArtist,
+  getArtists,
   signUpArtist,
   signInArtist,
   createProfileArtist,
@@ -10,6 +11,7 @@ const {
 
 /* GET artists listing. */
 // router.get('/', getUser)
+router.get("/", getArtists);
 router.get("/:token", getArtist);
 router.post("/signUp", signUpArtist);
 router.post("/signIn", signInArtist);
