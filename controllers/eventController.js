@@ -10,6 +10,7 @@ const { checkBody } = require("../utils/checkBody");
 exports.createEvent = async (req, res) => {
     //Vérification que les champs sont bien remplis
     if (!checkBody(req.body, ['title', 'date', 'hour_start', 'status', 'genres' ])) {
+    if (!checkBody(req.body, ['title', 'date', 'hour_start', 'status', 'genres' ])) {
         res.json({ result: false, error: 'Missing or empty fields' });
         return;
       }
@@ -40,8 +41,21 @@ exports.createEvent = async (req, res) => {
         }
       });
   };
-
-  // Route pour afficher event
+}
+// Fonction GET pour récupérer tout les events
+exports.getEvents = async (req, res) => {
+  try{
+    Event.find().then(data => {
+      if(data){
+        res.status(200).json({result: true, events: data})
+      }else{
+        res.status(404).json({result: false, message: "no data"})
+      }
+  })
+  }catch(err){
+    res.status(500).json({result: false, message: err.message})
+  }
+}  // Route pour afficher event
   exports.displayEvents = async (req, res) => { 
     // si connecté en tant que venue
     // if(req.body.isVenue) {
