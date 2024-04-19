@@ -5,11 +5,15 @@ const {
   signUpVenue,
   signInVenue,
   createProfileVenue,
-  getVenue,
+  getVenueByToken,
+  getVenueById,
 } = require("../controllers/venueController");
 
 // GET un venue
-router.get("/:id", getVenue);
+router.get("/id/:id", getVenueById);
+router.get("/token/:token", getVenueByToken)
+
+
 // POST signup
 router.post("/signUp", signUpVenue);
 

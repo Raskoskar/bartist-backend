@@ -12,6 +12,9 @@ const {
 
 // POST createEvent
 router.post('/createEvent', createEvent)
+
+// GET displayEvent
+router.get('/displayEvents/:token', displayEvents)
+
 router.get('/', getEvents)
-router.get('/displayEvents', displayEvents)
 module.exports = router;

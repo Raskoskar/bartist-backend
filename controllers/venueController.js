@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-
+const mongoose = require("mongoose")
 const Venue = require("../models/VenueModel");
 const { checkBody } = require("../utils/checkBody");
 
@@ -83,9 +83,31 @@ exports.createProfileVenue = async (req, res) => {
 };
 
 // RECUPERATION INFOS D'UN VENUE
-exports.getVenue = (req, res) => {
+exports.getVenueById = (req, res) => {
+  const id = req.params.id;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ result: false, message: 'Invalid ID' });
+  }
+
+  Venue.findOne({ _id: id })
+    .then(data => {
+      if (data) {
+        res.status(200).json({ result: true, venue: data });
+      } else {
+        res.status(404).json({ result: false, message: 'Venue not found' });
+      }
+    })
+    .catch(error => {
+      console.error("Error fetching venue:", error);
+      res.status(500).json({ result: false, message: 'Error' });
+    });
+};
+
+
+
+exports.getVenueByToken = (req, res) => {
   try{
-    Venue.findOne({ _id: req.params.id }).then(data => {
+    Venue.findOne({ token: req.params.token }).then(data => {
       if (data) {
         res.status(200).json({ result: true, venue: data });
       } else {
