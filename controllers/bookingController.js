@@ -10,7 +10,7 @@ const { checkBody } = require("../utils/checkBody");
 // Pour créer un booking
 exports.createBooking = async (req, res) => {
 //je reçois token, isVenue et name de l'artiste ou du venue + champs du booking - envoyer l'ID de l'event ?
-if (!checkBody(req.body, ['isVenue', 'token', 'eventId', 'name', 'date', 'description', 'status', 'duration', 'hour_start', 'rate' ])) {
+if (!checkBody(req.body, ['isVenue', 'token', 'eventId', 'tokenOtherUser', 'date', 'description', 'status', 'duration', 'hour_start', 'rate' ])) {
     res.json({ result: false, error: 'Missing or empty fields' });
     return;
   }
