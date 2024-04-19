@@ -22,7 +22,7 @@ router.get('/displayEvents/:token', displayEvents)
 router.delete('/deleteEvent/:id', deleteEvent)
 
 // PUT modifie le statut d'un evenement
-router.put('/updateStatus/:status', updateStatus)
+router.put('/updateStatus/:id', updateStatus)
 
 router.get('/', getEvents)
 
