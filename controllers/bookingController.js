@@ -132,10 +132,12 @@ exports.displayAllBookings = async (req, res) => {
 
 // Pour accepter ou refuser un booking en changeant son statut
 exports.updateBookingStatus = async (req, res) => {
-    Booking.findById(req.body._id)
+
+  console.log('id', req.body._id)
+  console.log('status', req.body.status)
+    Booking.updateOne({'_id': req.body._id}, {'status': req.body.status})
         .then(dataBooking => {
             if(dataBooking) {
-                dataBooking.status = req.body.status;
                 res.json({ result: true, dataBooking })
             } else {
                 res.json({ result: false, error: 'Booking not found' })
