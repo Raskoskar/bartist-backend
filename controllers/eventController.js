@@ -3,12 +3,13 @@ var router = express.Router();
 
 const Event = require("../models/EventModel");
 const Venue = require("../models/VenueModel");
+const Artist = require("../models/ArtistModel")
 const { checkBody } = require("../utils/checkBody");
 
 //ROUTE CREATION D'EVENEMENT
 exports.createEvent = async (req, res) => {
     //Vérification que les champs sont bien remplis
-    if (!checkBody(req.body, ['title', 'description', 'date', 'hour_start', 'picture', 'status', 'genres' ])) {
+    if (!checkBody(req.body, ['title', 'date', 'hour_start', 'status', 'genres' ])) {
         res.json({ result: false, error: 'Missing or empty fields' });
         return;
       }
@@ -39,4 +40,48 @@ exports.createEvent = async (req, res) => {
         }
       });
   };
+
+  // Route pour afficher event
+  exports.displayEvents = async (req, res) => { 
+    // si connecté en tant que venue
+    // if(req.body.isVenue) {
+      Venue.findOne({token: req.params.token})// cherche si token en question est présent dans Venue
+      .then(tokenVenue => {
+        if(tokenVenue){ 
+          try{
+            //Si trouvé on cherche le venue qui correspond dans la collection event
+            Event.find({ venue: tokenVenue._id }).then(dataEvent => {
+              if (dataEvent) { // renvoie les correspondances
+                res.json({ result: true, event: dataEvent });
+              } else {
+                res.json({ result: false, error: 'venue not found' });
+              }
+            });     
+          } catch(error){
+            console.log(error.message);
+          }
+        }
+      });
+    };
+    // else {
+      // si connecté en tant qu'artiste
+    //   Artist.findOne({token: req.params.token}) // cherche si token en question est présent dans Artist
+    //   .then(tokenArtist => {
+    //     if(tokenArtist) {
+    //       try{
+    //         Event.find({artistToken: tokenArtist._id}).then(dataArtist => {
+    //           if(dataArtist){
+    //             res.json({ result: true, artist: dataArtist });
+    //             } else {
+    //               res.json({ result: false, error: 'event not found' });
+    //             }
+    //           });
+    //         } catch(error){
+    //           console.log(error.message);
+    //         }
+    //       }
+    //     });
+    //   }
+    // };
+    
 
