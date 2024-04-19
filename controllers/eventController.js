@@ -10,7 +10,6 @@ const { checkBody } = require("../utils/checkBody");
 exports.createEvent = async (req, res) => {
     //Vérification que les champs sont bien remplis
     if (!checkBody(req.body, ['title', 'date', 'hour_start', 'status', 'genres' ])) {
-    if (!checkBody(req.body, ['title', 'date', 'hour_start', 'status', 'genres' ])) {
         res.json({ result: false, error: 'Missing or empty fields' });
         return;
       }
@@ -41,7 +40,7 @@ exports.createEvent = async (req, res) => {
         }
       });
   };
-}
+
 // Fonction GET pour récupérer tout les events
 exports.getEvents = async (req, res) => {
   try{
@@ -55,7 +54,9 @@ exports.getEvents = async (req, res) => {
   }catch(err){
     res.status(500).json({result: false, message: err.message})
   }
-}  // Route pour afficher event
+}  
+
+// Route pour afficher event
   exports.displayEvents = async (req, res) => { 
     // si connecté en tant que venue
     // if(req.body.isVenue) {
@@ -65,7 +66,7 @@ exports.getEvents = async (req, res) => {
           try{
             //Si trouvé on cherche le venue qui correspond dans la collection event
             Event.find({ venue: tokenVenue._id }).then(dataEvent => {
-              if (dataEvent) { // renvoie les correspondances
+              if (dataEvent.length) { // renvoie les correspondances
                 res.json({ result: true, event: dataEvent });
               } else {
                 res.json({ result: false, error: 'venue not found' });
@@ -77,6 +78,43 @@ exports.getEvents = async (req, res) => {
         }
       });
     };
+
+    //Route DELETE event
+    exports.deleteEvent = async (req, res) => {
+      // Venue.findOne({token: req.params.token})// cherche si token en question est présent dans Venue
+      // .then(tokenVenue => {
+      //   if(tokenVenue){ 
+          try{
+            //Si trouvé, cherche le venue qui correspond dans la collection event pour le delete
+            Event.deleteOne({ _id: req.params.id }) // La cle correspond a ce qu'on a en bdd, et le req.param fait reference a la route
+            .then(data => {
+              console.log(data);
+                if (data.deletedCount > 0) { // cf doc mongoose
+                    res.json({ result:true, message:"This event has been successfully deleted" })
+                } else {
+                    res.json({ result:false, error:"Event not found" })
+                }
+            });
+          } catch(error){
+            console.log(error.message);
+          }
+    };
+
+    exports.updateStatus = async (req, res) => {
+      try{
+          Event.updateOne({_id: req.body.id}, { status: req.body.status})
+          .then(data => {
+            if(data){
+              res.json({ result:true, message:"This status has been modified" })
+            } else {
+                res.json({ result:false, error:"Status not found" })
+            }
+        });
+      } catch(error){
+        console.log(error.message);
+      }
+    };
+
     // else {
       // si connecté en tant qu'artiste
     //   Artist.findOne({token: req.params.token}) // cherche si token en question est présent dans Artist

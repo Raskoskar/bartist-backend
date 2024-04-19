@@ -4,23 +4,26 @@ var router = express.Router();
 // Import des fonctions
 const {
     createEvent,
-<<<<<<< HEAD
-    displayEvents,
-=======
     getEvents,
->>>>>>> 99d80be11436260746cfdfc3124f15908f1ceaf9
+    displayEvents,
+    deleteEvent,
+    updateStatus,
     // updateStatusEvent,
     // editEvent,
   } = require("../controllers/eventController");
 
 // POST createEvent
 router.post('/createEvent', createEvent)
-<<<<<<< HEAD
 
-// GET displayEvent
+// GET displayEvents / le nom de la route est independante de ce qui a dans la bdd, donc on nomme comme on veu
 router.get('/displayEvents/:token', displayEvents)
 
-=======
+// DELETE deleteEvent / le nom de la route est independante de ce qui a dans la bdd, donc on nomme comme on veu
+router.delete('/deleteEvent/:id', deleteEvent)
+
+// PUT modifie le statut d'un evenement
+router.put('/updateStatus/:status', updateStatus)
+
 router.get('/', getEvents)
->>>>>>> 99d80be11436260746cfdfc3124f15908f1ceaf9
+
 module.exports = router;
