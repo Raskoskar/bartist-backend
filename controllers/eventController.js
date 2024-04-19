@@ -75,6 +75,20 @@ exports.getEvents = async (req, res) => {
         }
       });
     };
+
+    exports.getEventById = (req, res) => {
+      try{
+        Venue.findOne({ _id: req.params.id }).then(data => {
+          if (data) {
+            res.status(200).json({ result: true, venue: data });
+          } else {
+            res.status(404).json({ result: false, message: 'User not found' });
+          }
+        });
+      }catch(error){
+        res.status(500).json({ result: false, message: 'Error' });
+      }
+    };
     // else {
       // si connecté en tant qu'artiste
     //   Artist.findOne({token: req.params.token}) // cherche si token en question est présent dans Artist

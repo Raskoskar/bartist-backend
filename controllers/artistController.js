@@ -119,3 +119,17 @@ exports.signUpArtist = async (req, res) => {
       res.json(500).json({result: false, message: error.message})
     }
   };
+
+  exports.getArtistById = (req, res) => {
+    try{
+      Venue.findOne({ _id: req.params.id }).then(data => {
+        if (data) {
+          res.status(200).json({ result: true, venue: data });
+        } else {
+          res.status(404).json({ result: false, message: 'User not found' });
+        }
+      });
+    }catch(error){
+      res.status(500).json({ result: false, message: 'Error' });
+    }
+  };
