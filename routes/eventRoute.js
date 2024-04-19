@@ -6,9 +6,10 @@ const {
     createEvent,
     getEvents,
     displayEvents,
+    getEvents,
+    getEventById,
     deleteEvent,
     updateStatus,
-    // updateStatusEvent,
     // editEvent,
   } = require("../controllers/eventController");
 
@@ -25,5 +26,5 @@ router.delete('/deleteEvent/:id', deleteEvent)
 router.put('/updateStatus/:id', updateStatus)
 
 router.get('/', getEvents)
-
+router.get('/id/', getEventById)
 module.exports = router;
