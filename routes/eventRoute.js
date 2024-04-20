@@ -6,7 +6,6 @@ const {
     createEvent,
     getEvents,
     displayEvents,
-    getEvents,
     getEventById,
     deleteEvent,
     updateStatus,
