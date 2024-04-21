@@ -13,8 +13,8 @@ const {
 /* GET artists listing. */
 // router.get('/', getUser)
 router.get("/", getArtists);
-router.get("/id/", getArtistById)
-router.get("/:token", getArtist);
+router.get("/id/:id", getArtistById)
+router.get("/token/:token", getArtist);
 router.post("/signUp", signUpArtist);
 router.post("/signIn", signInArtist);
 router.post("/createProfile/:token", createProfileArtist);

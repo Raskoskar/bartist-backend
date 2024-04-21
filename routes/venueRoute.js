@@ -13,7 +13,6 @@ const {
 router.get("/id/:id", getVenueById);
 router.get("/token/:token", getVenueByToken)
 
-
 // POST signup
 router.post("/signUp", signUpVenue);
 
