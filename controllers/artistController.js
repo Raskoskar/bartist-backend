@@ -110,13 +110,13 @@ exports.signUpArtist = async (req, res) => {
     try{
       Artist.findOne({ token: req.params.token }).then(data => {
         if (data) {
-          res.json({ result: true, artist: data });
+          res.status(200).json({ result: true, artist: data });
         } else {
-          res.json({ result: false, error: 'User not found' });
+          res.status(404).json({ result: false, error: 'User not found' });
         }
       });
     }catch(error){
-      res.json(500).json({result: false, message: error.message})
+      res.status(500).json({result: false, message: error.message})
     }
   };
 
