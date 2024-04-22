@@ -133,7 +133,6 @@ exports.getEvents = async (req, res) => {
             //Si trouvé, cherche le venue qui correspond dans la collection event pour le delete
             Event.deleteOne({ _id: req.body._id }) // La cle correspond a ce qu'on a en bdd, et le req.param fait reference a la route
             .then(data => {
-              console.log(data);
                 if (data.deletedCount > 0) { // cf doc mongoose
                     res.json({ result:true, message:"This event has been successfully deleted" })
                 } else {
