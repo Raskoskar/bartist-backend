@@ -73,8 +73,6 @@ exports.createBooking = async (req, res) => {
 
 // Pour afficher tous les bookings du user dans la page "Mes propositions"
 exports.displayAllBookings = async (req, res) => {
-  console.log(req.body.isVenue);
-  console.log(req.body.token);
   if (req.body.isVenue) {
     // si le user connecté est un établissement
     Venue.findOne({ token: req.body.token }).then((dataVenue) => {
