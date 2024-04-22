@@ -95,9 +95,7 @@ exports.getEvents = async (req, res) => {
 
     //Route DELETE event
     exports.deleteEvent = async (req, res) => {
-      // Venue.findOne({token: req.params.token})// cherche si token en question est présent dans Venue
-      // .then(tokenVenue => {
-      //   if(tokenVenue){ 
+      // Ne pas passer l'id en params pour que la route fonctionnne
           try{
             //Si trouvé, cherche le venue qui correspond dans la collection event pour le delete
             Event.deleteOne({ _id: req.body._id }) // La cle correspond a ce qu'on a en bdd, et le req.param fait reference a la route
