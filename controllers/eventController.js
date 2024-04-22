@@ -109,7 +109,6 @@ exports.getEvents = async (req, res) => {
               Event.find({venue: dataVenue._id}) // on cherche tous les événéments qui ont comme clé étrangère venue l'ID de l'établissement
               .then(dataEvents => {
                 if(dataEvents) {
-                  console.log('retour de la route',dataEvents)
                   res.json({ result: true, events: dataEvents })
                 } else {
                   res.json({ result:false, error:"No events found" })

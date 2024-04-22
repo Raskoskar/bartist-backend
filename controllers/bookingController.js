@@ -8,8 +8,8 @@ const { checkBody } = require("../utils/checkBody");
 
 // Pour créer un booking
 exports.createBooking = async (req, res) => {
+  console.log(req.body)
   try {
-    console.log(req.body)
     if (
       !checkBody(req.body, [
         "token",
