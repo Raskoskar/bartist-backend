@@ -25,5 +25,5 @@ router.delete('/deleteEvent/:id', deleteEvent)
 router.put('/updateStatus/:id', updateStatus)
 
 router.get('/', getEvents)
-router.get('/id/', getEventById)
+router.get('/id/:id', getEventById)
 module.exports = router;
