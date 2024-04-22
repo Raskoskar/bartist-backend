@@ -13,7 +13,6 @@ exports.createBooking = async (req, res) => {
     if (
       !checkBody(req.body, [
         "token",
-        "isVenue",
         "artistId",
         "venueId",
         "eventId",
@@ -34,7 +33,7 @@ exports.createBooking = async (req, res) => {
         }
       })
     }else {
-      Artist.findOne({token: token}).then(data => {
+      Artist.findOne({token: req.body.token}).then(data => {
         if(!data){
           res.status(305).json({result: false, message: "not allowed artist user"})
         }
