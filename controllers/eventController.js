@@ -100,6 +100,30 @@ exports.getEvents = async (req, res) => {
         });
     };
 
+    // Obtenir tous les événements d'un établissement grâce à son token
+    exports.getEventsByVenueToken = async (req, res) => {
+      try{
+          Venue.findOne({token: req.params.token}) // on récupère l'ID de l'établissement grâce à son token
+          .then(dataVenue => {
+            if(dataVenue){
+              Event.find({venue: dataVenue._id}) // on cherche tous les événéments qui ont comme clé étrangère venue l'ID de l'établissement
+              .then(dataEvents => {
+                if(dataEvents) {
+                  console.log('retour de la route',dataEvents)
+                  res.json({ result: true, events: dataEvents })
+                } else {
+                  res.json({ result:false, error:"No events found" })
+                }
+              })
+            } else {
+                res.json({ result:false, error:"Venue not found" })
+            }
+        });
+      } catch(error){
+        console.log(error.message);
+      }
+    }
+
     //Route DELETE event
     exports.deleteEvent = async (req, res) => {
       // Venue.findOne({token: req.params.token})// cherche si token en question est présent dans Venue
