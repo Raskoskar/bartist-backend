@@ -100,7 +100,7 @@ exports.getEvents = async (req, res) => {
       //   if(tokenVenue){ 
           try{
             //Si trouvé, cherche le venue qui correspond dans la collection event pour le delete
-            Event.deleteOne({ _id: req.params.id }) // La cle correspond a ce qu'on a en bdd, et le req.param fait reference a la route
+            Event.deleteOne({ _id: req.body._id }) // La cle correspond a ce qu'on a en bdd, et le req.param fait reference a la route
             .then(data => {
               console.log(data);
                 if (data.deletedCount > 0) { // cf doc mongoose
@@ -113,10 +113,10 @@ exports.getEvents = async (req, res) => {
             console.log(error.message);
           }
     };
-
-    exports.updateStatus = async (req, res) => {
+    // Route update event's status
+    exports.updateEventStatus = async (req, res) => {
       try{
-          Event.updateOne({_id: req.body.id}, { status: req.body.status})
+          Event.updateOne({_id: req.body._id}, { status: req.body.status})
           .then(data => {
             if(data){
               res.json({ result:true, message:"This status has been modified" })
