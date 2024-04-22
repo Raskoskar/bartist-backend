@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const mongoose = require("mongoose")
 
 const Event = require("../models/EventModel");
 const Venue = require("../models/VenueModel");
@@ -80,17 +81,23 @@ exports.getEvents = async (req, res) => {
     };
 
     exports.getEventById = (req, res) => {
-      try{
-        Event.findOne({ _id: req.params.id }).then(data => {
+      const id = req.params.id;
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ result: false, message: 'Invalid ID' });
+      }
+    
+      Event.findOne({ _id: id })
+        .then(data => {
           if (data) {
             res.status(200).json({ result: true, event: data });
           } else {
-            res.status(404).json({ result: false, message: 'User not found' });
+            res.status(404).json({ result: false, message: 'Event not found' });
           }
+        })
+        .catch(error => {
+          console.error("Error fetching event:", error);
+          res.status(500).json({ result: false, message: 'Error' });
         });
-      }catch(error){
-        res.status(500).json({ result: false, message: 'Error' });
-      }
     };
 
     //Route DELETE event

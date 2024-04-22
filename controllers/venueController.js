@@ -94,7 +94,7 @@ exports.getVenueById = (req, res) => {
       if (data) {
         res.status(200).json({ result: true, venue: data });
       } else {
-        res.status(404).json({ result: false, message: 'Venue not found' });
+        res.status(404).json({ result: false, message: 'venue not found' });
       }
     })
     .catch(error => {
