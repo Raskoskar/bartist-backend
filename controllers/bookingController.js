@@ -109,8 +109,6 @@ exports.displayAllBookings = async (req, res) => {
 
 // Pour accepter ou refuser un booking en changeant son statut
 exports.updateBookingStatus = async (req, res) => {
-  console.log("id", req.body._id);
-  console.log("status", req.body.status);
   Booking.updateOne({ _id: req.body._id }, { status: req.body.status }).then(
     (dataBooking) => {
       if (dataBooking) {
@@ -120,4 +118,33 @@ exports.updateBookingStatus = async (req, res) => {
       }
     }
   );
+};
+
+
+exports.getArtistBookedByEventId = async (req, res) => {
+  try {
+    if (req.params.id) {
+      Booking.find({ event: req.params.id })
+        .populate('artist', 'name')  // Spécifiez que vous voulez seulement le nom de l'artiste
+        .then(bookings => {
+          if (bookings.length === 0) {
+            res.status(404).json({ result: false, message: "No Booking Linked to Event" });
+          } else {
+            // Transformer les données pour ne renvoyer que le nom de l'artiste et le statut de la réservation
+            const transformedBookings = bookings.map(booking => ({
+              artistName: booking.artist.name, // Accéder au nom de l'artiste
+              status: booking.status // Accéder au statut de la réservation
+            }));
+            res.status(200).json({ result: true, bookings: transformedBookings });
+          }
+        })
+        .catch(error => {
+          res.status(500).json({ result: false, message: error.message });
+        });
+    } else {
+      res.status(400).json({ result: false, message: "Event ID not provided" });
+    }
+  } catch (error) {
+    res.status(500).json({ result: false, message: error.message });
+  }
 };

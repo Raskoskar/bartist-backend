@@ -1,4 +1,4 @@
-//For cloudinary backend
+/*//For cloudinary backend
 // Require the cloudinary library
 const cloudinary = require('cloudinary').v2;
 
@@ -35,4 +35,4 @@ const uploadImage = async (imagePath) => {
   } catch (error) {
     console.error(error);
   }
-};
+};*/

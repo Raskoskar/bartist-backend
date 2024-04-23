@@ -10,6 +10,7 @@ const {
     deleteEvent,
     updateEventStatus,
     getEventsByVenueToken,
+    displayEventsByBooking
     // editEvent,
   } = require("../controllers/eventController");
 
@@ -18,7 +19,7 @@ router.post('/createEvent', createEvent)
 
 // GET displayEvents / le nom de la route est independante de ce qui a dans la bdd, donc on nomme comme on veu
 router.get('/displayEvents/:token', displayEvents)
-
+router.get('/token/:token', displayEventsByBooking)
 // DELETE deleteEvent / le nom de la route est independante de ce qui a dans la bdd, donc on nomme comme on veu
 router.delete('/deleteEvent', deleteEvent)
 

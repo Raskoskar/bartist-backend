@@ -4,6 +4,7 @@ const mongoose = require("mongoose")
 
 const Event = require("../models/EventModel");
 const Venue = require("../models/VenueModel");
+const Booking = require("../models/BookingModel")
 const Artist = require("../models/ArtistModel")
 const { checkBody } = require("../utils/checkBody");
 
@@ -156,25 +157,24 @@ exports.getEvents = async (req, res) => {
       }
     };
 
-    // else {
-      // si connecté en tant qu'artiste
-    //   Artist.findOne({token: req.params.token}) // cherche si token en question est présent dans Artist
-    //   .then(tokenArtist => {
-    //     if(tokenArtist) {
-    //       try{
-    //         Event.find({artistToken: tokenArtist._id}).then(dataArtist => {
-    //           if(dataArtist){
-    //             res.json({ result: true, artist: dataArtist });
-    //             } else {
-    //               res.json({ result: false, error: 'event not found' });
-    //             }
-    //           });
-    //         } catch(error){
-    //           console.log(error.message);
-    //         }
-    //       }
-    //     });
-    //   }
-    // };
-    
+    exports.displayEventsByBooking = async (req, res) => {
+      try{
+        Artist.findOne({token: req.params.token}).then(data => {
+          console.log(data)
+          if(!data){
+            res.status(400).json({result: false, message: "Your are not a allowed user"})
+          }else{
+            Booking.find({artist: data._id}).populate('event').then(data => {
+              if(data){
+                res.status(200).json({result: true, message: "Events Booked", events: data})
+              }else{
+                res.status(402).json({result: false, message: "No Events Booked Yet"})
+              }
+            })
+          }
+        })
+      }catch(error){
+        res.status(500).json({result: false, message: "Controller Error contact with DB"})
+      }
+    }
 
