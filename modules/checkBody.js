@@ -4,6 +4,7 @@ function checkBody(keys, value) {
     let checkIsOk = true;
 
     for (const iterator of value) {
+        console.log(iterator)
         if(!keys[iterator] || keys[iterator] === ""){
             checkIsOk = false;
         }
