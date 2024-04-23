@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const mongoose = require("mongoose")
 
 const Event = require("../models/EventModel");
 const Venue = require("../models/VenueModel");
@@ -80,18 +81,47 @@ exports.getEvents = async (req, res) => {
     };
 
     exports.getEventById = (req, res) => {
-      try{
-        Venue.findOne({ _id: req.params.id }).then(data => {
-          if (data) {
-            res.status(200).json({ result: true, venue: data });
-          } else {
-            res.status(404).json({ result: false, message: 'User not found' });
-          }
-        });
-      }catch(error){
-        res.status(500).json({ result: false, message: 'Error' });
+      const id = req.params.id;
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ result: false, message: 'Invalid ID' });
       }
+    
+      Event.findOne({ _id: id })
+        .then(data => {
+          if (data) {
+            res.status(200).json({ result: true, event: data });
+          } else {
+            res.status(404).json({ result: false, message: 'Event not found' });
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching event:", error);
+          res.status(500).json({ result: false, message: 'Error' });
+        });
     };
+
+    // Obtenir tous les événements d'un établissement grâce à son token
+    exports.getEventsByVenueToken = async (req, res) => {
+      try{
+          Venue.findOne({token: req.params.token}) // on récupère l'ID de l'établissement grâce à son token
+          .then(dataVenue => {
+            if(dataVenue){
+              Event.find({venue: dataVenue._id}) // on cherche tous les événéments qui ont comme clé étrangère venue l'ID de l'établissement
+              .then(dataEvents => {
+                if(dataEvents) {
+                  res.json({ result: true, events: dataEvents })
+                } else {
+                  res.json({ result:false, error:"No events found" })
+                }
+              })
+            } else {
+                res.json({ result:false, error:"Venue not found" })
+            }
+        });
+      } catch(error){
+        console.log(error.message);
+      }
+    }
 
     //Route DELETE event
     exports.deleteEvent = async (req, res) => {
@@ -100,7 +130,6 @@ exports.getEvents = async (req, res) => {
             //Si trouvé, cherche le venue qui correspond dans la collection event pour le delete
             Event.deleteOne({ _id: req.body._id }) // La cle correspond a ce qu'on a en bdd, et le req.param fait reference a la route
             .then(data => {
-              console.log(data);
                 if (data.deletedCount > 0) { // cf doc mongoose
                     res.json({ result:true, message:"This event has been successfully deleted" })
                 } else {

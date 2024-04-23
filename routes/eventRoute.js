@@ -9,6 +9,7 @@ const {
     getEventById,
     deleteEvent,
     updateEventStatus,
+    getEventsByVenueToken,
     // editEvent,
   } = require("../controllers/eventController");
 
@@ -25,5 +26,7 @@ router.delete('/deleteEvent', deleteEvent)
 router.post('/updateEventStatus', updateEventStatus)
 
 router.get('/', getEvents)
-router.get('/id/', getEventById)
+router.get('/id/:id', getEventById)
+// Get pour obtenir tous les événements d'un établissement grâce à son token
+router.get('/getEventsByVenueToken/:token', getEventsByVenueToken)
 module.exports = router;
