@@ -13,7 +13,6 @@ exports.createBooking = async (req, res) => {
     if (
       !checkBody(req.body, [
         "token",
-        "isVenue",
         "artistId",
         "venueId",
         "eventId",
@@ -34,7 +33,7 @@ exports.createBooking = async (req, res) => {
         }
       })
     }else {
-      Artist.findOne({token: token}).then(data => {
+      Artist.findOne({token: req.body.token}).then(data => {
         if(!data){
           res.status(305).json({result: false, message: "not allowed artist user"})
         }
@@ -73,8 +72,6 @@ exports.createBooking = async (req, res) => {
 
 // Pour afficher tous les bookings du user dans la page "Mes propositions"
 exports.displayAllBookings = async (req, res) => {
-  console.log(req.body.isVenue);
-  console.log(req.body.token);
   if (req.body.isVenue) {
     // si le user connecté est un établissement
     Venue.findOne({ token: req.body.token }).then((dataVenue) => {
