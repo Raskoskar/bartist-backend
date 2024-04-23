@@ -19,6 +19,8 @@ var app = express();
 const cors = require('cors');
 app.use(cors());
 
+const cloudinary = require('cloudinary').v2;
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

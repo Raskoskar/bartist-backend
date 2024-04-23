@@ -1,34 +1,38 @@
-// //For cloudinary backend
-// // Require the cloudinary library
-// const cloudinary = require('cloudinary').v2;
+//For cloudinary backend
+// Require the cloudinary library
+const cloudinary = require('cloudinary').v2;
 
-// // Return "https" URLs by setting secure: true
-// cloudinary.config({
-//   secure: true
-// });
+// Return "https" URLs by setting secure: true
+cloudinary.config({
+  secure: true,
+  CLOUDINARY_URL: process.env.CLOUDINARY_URL
+  // cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  // api_key: process.env.CLOUDINARY_API_KEY,
+  // api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-// // Log the configuration
-// console.log(cloudinary.config());
+// Log the configuration
+console.log(cloudinary.config());
 
-// /////////////////////////
-// // Uploads an image file
-// /////////////////////////
-// const uploadImage = async (imagePath) => {
+/////////////////////////
+// Uploads an image file
+/////////////////////////
+const uploadImage = async (imagePath) => {
 
-//   // Use the uploaded file's name as the asset's public ID and 
-//   // allow overwriting the asset with new versions
-//   const options = {
-//     use_filename: true,
-//     unique_filename: false,
-//     overwrite: true,
-//   };
+  // Use the uploaded file's name as the asset's public ID and 
+  // allow overwriting the asset with new versions
+  const options = {
+    use_filename: true,
+    unique_filename: false,
+    overwrite: true,
+  };
 
-//   try {
-//     // Upload the image
-//     const result = await cloudinary.uploader.upload(imagePath, options);
-//     console.log(result);
-//     return result.public_id;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+  try {
+    // Upload the image
+    const result = await cloudinary.uploader.upload(imagePath, options);
+    console.log(result);
+    return result.public_id;
+  } catch (error) {
+    console.error(error);
+  }
+};
