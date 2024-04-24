@@ -19,7 +19,12 @@ var app = express();
 const cors = require('cors');
 app.use(cors());
 
-const cloudinary = require('cloudinary').v2;
+const fileUpload = require('express-fileupload');
+// Middleware express-fileupload
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: './tmp/', // Chemin corrigé vers le répertoire temporaire
+}));
 
 app.use(logger('dev'));
 app.use(express.json());
