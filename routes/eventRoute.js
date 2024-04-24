@@ -9,6 +9,7 @@ const {
     getEventById,
     deleteEvent,
     updateEventStatus,
+    uploadFile,
     // editEvent,
   } = require("../controllers/eventController");
 
@@ -26,4 +27,5 @@ router.post('/updateEventStatus', updateEventStatus)
 
 router.get('/', getEvents)
 router.get('/id/', getEventById)
+
 module.exports = router;

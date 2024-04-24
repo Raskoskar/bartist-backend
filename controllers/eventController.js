@@ -6,6 +6,12 @@ const Venue = require("../models/VenueModel");
 const Artist = require("../models/ArtistModel")
 const { checkBody } = require("../utils/checkBody");
 
+// const uniqid = require('uniqid');
+// const cloudinary = require('cloudinary').v2;
+// const fs = require('fs');
+// let fileInfo = fs.readFileSync('path/to/sample.txt');
+// let uploadedImageUrl;
+
 //ROUTE CREATION D'EVENEMENT
 exports.createEvent = async (req, res) => {
     //Vérification que les champs sont bien remplis
@@ -19,12 +25,13 @@ exports.createEvent = async (req, res) => {
         .then(data => {
         // le compte Venue existe en BDD
         if (data) {
+
           const newEvent = new Event({
             title: req.body.title,
             description: req.body.description,
             date: req.body.date,
             hour_start: req.body.hour_start,
-            picture: req.body.picture,
+            picture: uploadedImageUrl,
             status: req.body.status,
             socials: req.body.socials,
             venue: data._id,
