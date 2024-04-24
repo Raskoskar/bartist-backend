@@ -33,7 +33,7 @@ exports.createEvent = async (req, res) => {
             description: req.body.description,
             date: req.body.date,
             hour_start: req.body.hour_start,
-            picture: uploadedImageUrl,
+            picture: req.body.picture,
             status: req.body.status,
             socials: req.body.socials,
             venue: data._id,
