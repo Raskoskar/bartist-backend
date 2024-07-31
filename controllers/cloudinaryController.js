@@ -17,7 +17,7 @@ exports.uploadFile = async (req, res) => {
     if (req.files && req.files.image) {
         try {
             // Utilisation de la promesse avec async/await
-            const result = await cloudinary.uploader.upload(req.files.image.tempFilePath);
+            const result = await cloudinary.uploader.upload(req.files.image.tempFilePath); //méthode cloudinary.uploader.upload pour uploader le fichier situé à req.files.image.tempFilePath vers Cloudinary
             res.json({ imageUrl: result.url });
         } catch (error) {
             console.log('error upload controller : ', error);

@@ -120,11 +120,14 @@ exports.getArtist = (req, res) => {
 };
 
 exports.getArtistById = (req, res) => {
+  // Récupère l'identifiant de l'artiste depuis les paramètres de la requête
   const id = req.params.id;
+  // Vérifie si l'identifiant est un ObjectId valide
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ result: false, message: "Invalid ID" });
   }
-
+  
+// Recherche l'artiste dans la base de données en utilisant son _id
   Artist.findOne({ _id: id })
     .then((data) => {
       if (data) {
